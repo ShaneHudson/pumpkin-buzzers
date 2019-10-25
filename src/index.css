@@ -1,13 +1,82 @@
+* {
+  box-sizing: border-box;
+}
+
+.theme-halloween {
+  --primary-colour: #000;
+  --secondary-colour: #000;
+  --primary-font: 'Griffy';
+  --secondary-font: 'Spicy Rice';
+  --background-colour: #f9c137;
+}
+
+body {
+  background-color: var(--background-colour);
+}
+
+/* 
+#root {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+} */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+div + div {
+  margin: 20px;
+}
+
+label {
+  margin-right: 20px;
+}
+
+.buzzer {
+  background: transparent;
+  border: none;
+  -webkit-appearance: none;
+  width: 400px;
+  height: 400px;
+}
+
+.quiz-title,
+.text-primary {
+  font-family: var(--primary-font);
+}
+
+.quiz-answer {
+  font-family: var(--secondary-font);
+  font-size: 3rem;
+}
+
+.buzzer {
+  cursor: pointer;
+}
+
+.buzzer:hover,
+.buzzer:active {
+  opacity: 0.7;
+}
+
+.buzzer[disabled] {
+  opacity: 0.3;
+}
+
+ul {
+  list-style: none;
 }
