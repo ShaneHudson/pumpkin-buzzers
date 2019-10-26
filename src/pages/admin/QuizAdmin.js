@@ -41,12 +41,7 @@ export default class QuizAdmin extends React.Component {
             <ul>
               {quiz.players.map(team => (
                 <li key={team}>
-                  {quiz.questions.reduce((prev, curr) => {
-                    var wonQuestion =
-                      curr.winner && curr.winner === 'Shane' ? 1 : 0
-                    return prev + wonQuestion
-                  }, 0)}
-                  <span> {team}</span>
+                  <span>{team}</span>
                   {Object.keys(teams).length && teams[team].onlineState ? (
                     <span> Connected </span>
                   ) : (
@@ -117,6 +112,19 @@ export default class QuizAdmin extends React.Component {
           <React.Fragment>
             <h2>Current Question</h2>
             <p>{quiz.questions[quiz.currentQuestion].text}</p>
+          </React.Fragment>
+        )}
+
+        {quiz.questions && quiz.currentQuestion >= 0 && (
+          <React.Fragment>
+            <h2>Winners</h2>
+            <ul>
+              {quiz.questions.map((val, index) => (
+                <li key={val.text}>
+                  Question {index}: {val.winner}
+                </li>
+              ))}
+            </ul>
           </React.Fragment>
         )}
       </div>

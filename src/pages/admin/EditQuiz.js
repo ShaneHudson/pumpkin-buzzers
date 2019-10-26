@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default class EditQuiz extends React.Component {
   state = {
+    currentQuestion: -1,
     questions: [{ text: '' }],
     players: []
   }
