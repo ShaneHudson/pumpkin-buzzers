@@ -80,7 +80,7 @@ export default class QuizAdmin extends React.Component {
                 <p>
                   {quiz.questions[quiz.currentQuestion].buzzed} Buzzed first!
                   <audio
-                    controls
+                    controls={true}
                     autoPlay={true}
                     src={`/${quiz.theme}/${quiz.players.indexOf(
                       quiz.questions[quiz.currentQuestion].buzzed
