@@ -19,6 +19,16 @@ export default class QuizAdmin extends React.Component {
 
     const quiz = quizzes[currentQuiz] || {}
 
+    let hasQuestion = false
+    let hasBuzzed = false
+    if (
+      quiz.currentQuestion >= 0 &&
+      quiz.currentQuestion < quiz.questions.length
+    ) {
+      hasQuestion = true
+      hasBuzzed = quiz.questions[quiz.currentQuestion].buzzed || false
+    }
+
     return (
       <div>
         <h1 className="quiz-title">{quiz.title}</h1>
@@ -64,56 +74,54 @@ export default class QuizAdmin extends React.Component {
                 Start Quiz
               </button>
             )}
-            {quiz.currentQuestion >= 0 &&
-              !quiz.questions[quiz.currentQuestion].buzzed && (
-                <p>Waiting for buzzes</p>
-              )}
-            {quiz.currentQuestion >= 0 &&
-              quiz.questions[quiz.currentQuestion].buzzed && (
-                <React.Fragment>
-                  <p>
-                    {quiz.questions[quiz.currentQuestion].buzzed} Buzzed first!
-                    <audio
-                      autoPlay={true}
-                      src={`/${quiz.theme}/${quiz.players.indexOf(
-                        quiz.questions[quiz.currentQuestion].buzzed
-                      ) + 1}.mp3`}
-                    />
-                  </p>
-                  <p>
-                    Correct answer:{' '}
-                    {quiz.questions[quiz.currentQuestion].answer || ''}
-                  </p>
-                  <p>Did they get it right?</p>
-                  <button
-                    onClick={() => {
-                      var newState = { ...quiz }
-                      newState.questions[quiz.currentQuestion].winner =
-                        quiz.questions[quiz.currentQuestion].buzzed
-                      newState.currentQuestion += 1
-                      setQuiz(newState)
-                    }}>
-                    Yes
-                  </button>
-                  <button
-                    onClick={() => {
-                      var newState = { ...quiz }
-                      newState.questions[quiz.currentQuestion].buzzed = null
-                      setQuiz(newState)
-                    }}>
-                    No
-                  </button>
-                </React.Fragment>
-              )}
+            {hasQuestion && !hasBuzzed && <p>Waiting for buzzes</p>}
+            {hasQuestion && hasBuzzed && (
+              <React.Fragment>
+                <p>
+                  {quiz.questions[quiz.currentQuestion].buzzed} Buzzed first!
+                  <audio
+                    autoPlay={true}
+                    src={`/${quiz.theme}/${quiz.players.indexOf(
+                      quiz.questions[quiz.currentQuestion].buzzed
+                    ) + 1}.mp3`}
+                  />
+                </p>
+                <p>
+                  Correct answer:{' '}
+                  {quiz.questions[quiz.currentQuestion].answer || ''}
+                </p>
+                <p>Did they get it right?</p>
+                <button
+                  onClick={() => {
+                    var newState = { ...quiz }
+                    newState.questions[quiz.currentQuestion].winner =
+                      quiz.questions[quiz.currentQuestion].buzzed
+                    newState.currentQuestion += 1
+                    setQuiz(newState)
+                  }}>
+                  Yes
+                </button>
+                <button
+                  onClick={() => {
+                    var newState = { ...quiz }
+                    newState.questions[quiz.currentQuestion].buzzed = null
+                    setQuiz(newState)
+                  }}>
+                  No
+                </button>
+              </React.Fragment>
+            )}
           </React.Fragment>
         )}
 
-        {quiz.questions && quiz.currentQuestion >= 0 && (
-          <React.Fragment>
-            <h2>Current Question</h2>
-            <p>{quiz.questions[quiz.currentQuestion].text}</p>
-          </React.Fragment>
-        )}
+        {quiz.questions &&
+          quiz.currentQuestion >= 0 &&
+          quiz.currentQuestion < quiz.questions.length && (
+            <React.Fragment>
+              <h2>Current Question</h2>
+              <p>{quiz.questions[quiz.currentQuestion].text}</p>
+            </React.Fragment>
+          )}
 
         {quiz.questions && quiz.currentQuestion >= 0 && (
           <React.Fragment>
